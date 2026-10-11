@@ -15,4 +15,18 @@ results/*.jpg
 results/*.csv
 
 .vscode/
-.idea/
+.idea/# Python environment and cache
+*.py[cod]
+# Large email training dataset
+email_detection/data/
+# Windows shortcuts
+*.lnk
+
+# Duplicate empty artifact
+/result/raw_url_phishing_model.pkl
+
+# Experimental website models
+/results/domain_test_model.pkl
+/results/improved_url_model.pkl
+/results/normalized_url_model.pkl
+/results/random_forest_phishing_model.pkl
