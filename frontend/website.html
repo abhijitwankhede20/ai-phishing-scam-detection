@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>Website Detection | PhishGuard AI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">P</span><span>PhishGuard <b>AI</b></span></a>
+      <nav class="main-nav" aria-label="Main navigation"><a class="nav-link" href="/">Overview</a><a class="nav-link active" href="/static/website.html">Website detection</a><a class="nav-link" href="/static/email.html">Email detection</a></nav>
+      <span class="nav-status"><i></i> Website scanner</span>
+    </div>
+  </header>
+  <main class="page-wrap">
+    <div class="breadcrumb"><a href="/">Overview</a><span>/</span><span>Website detection</span></div>
+    <section class="scanner-heading">
+      <div class="scanner-heading-copy"><div class="eyebrow eyebrow-light-blue"><span class="eyebrow-line"></span> URL THREAT ANALYSIS</div><h1>Website <span>phishing detection</span></h1><p>Inspect a suspicious website address for phishing patterns and configured risk indicators. No website is opened by this form; the URL is submitted to your detector for analysis.</p></div>
+      <div class="scanner-heading-icon blue-heading-icon">↗</div>
+    </section>
+    <section class="scanner-layout">
+      <div class="scanner-main">
+        <article class="form-card">
+          <div class="card-heading"><span class="card-heading-icon blue-soft">01</span><div><h2>Enter website URL</h2><p>Paste the full URL you want to check.</p></div></div>
+          <form id="scan-form" class="scan-form">
+            <label for="url-input">Website address</label>
+            <div class="url-input-wrap"><span aria-hidden="true">↗</span><input id="url-input" type="text" placeholder="https://example.com" autocomplete="url" spellcheck="false" required></div>
+            <p class="field-help">Example: https://example.com/login. Do not enter passwords or personal information.</p>
+            <button id="scan-button" class="button button-primary full-button" type="submit"><span>Analyze website</span><span aria-hidden="true">→</span></button>
+          </form>
+        </article>
+        <section id="loading" class="notice loading hidden" role="status" aria-live="polite"><span class="spinner"></span><div><strong>Analyzing website URL…</strong><p>Checking configured URL patterns and risk indicators.</p></div></section>
+        <section id="error-box" class="notice error hidden" role="alert"></section>
+
+        <section id="report" class="report hidden" aria-live="polite">
+          <div class="report-topline"><div><div class="section-kicker">ANALYSIS COMPLETE</div><h2>Website scan report</h2><p id="report-time" class="report-time"></p></div><button id="print-button" class="button button-outline" type="button">Print / Save PDF</button></div>
+          <article id="verdict-panel" class="verdict-panel"><div id="verdict-icon" class="verdict-icon">!</div><div class="verdict-copy"><div class="verdict-overline">WEBSITE VERDICT</div><h3 id="verdict-title">Analysis complete</h3><p id="prediction-description">Review the findings below.</p></div><span id="status-badge" class="status-badge">UNKNOWN</span></article>
+          <div class="summary-grid">
+            <article class="metric-card"><div class="metric-head"><span class="metric-symbol amber-symbol">◉</span><span class="card-label">ML phishing estimate</span></div><h3 id="phishing-probability">—</h3><div class="progress" role="progressbar" aria-label="Phishing estimate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="probability-bar"></div></div><p class="metric-note">Model estimate, not a guarantee.</p></article>
+            <article class="metric-card"><div class="metric-head"><span class="metric-symbol blue-symbol">⌁</span><span class="card-label">Structural risk</span></div><h3><span id="risk-points">—</span><small> points</small></h3><p id="risk-description" class="metric-note">Based on configured URL rules.</p></article>
+            <article class="metric-card"><div class="metric-head"><span class="metric-symbol green-symbol">⌖</span><span class="card-label">Hostname</span></div><h3 id="hostname-metric" class="hostname-metric">—</h3><p class="metric-note">Domain extracted from the URL.</p></article>
+          </div>
+          <div class="report-columns">
+            <div class="report-main">
+              <article class="panel"><div class="panel-heading"><span class="panel-icon">≡</span><div><h3>Security findings</h3><p>Reasons returned by the configured detector</p></div></div><ul id="reasons-list" class="findings-list"></ul></article>
+              <article class="panel"><div class="panel-heading"><span class="panel-icon">↗</span><div><h3>URL details</h3><p>Submitted and normalized URL information</p></div></div>
+                <div class="detail-row"><span>Submitted URL</span><code id="submitted-url"></code><button class="copy-button" data-copy="submitted-url" type="button">Copy</button></div>
+                <div class="detail-row"><span>Hostname</span><code id="hostname"></code><button class="copy-button" data-copy="hostname" type="button">Copy</button></div>
+                <div class="detail-row"><span>Normalized URL</span><code id="normalized-url"></code><button class="copy-button" data-copy="normalized-url" type="button">Copy</button></div>
+              </article>
+            </div>
+            <aside class="report-side"><article id="action-panel" class="action-panel"><div class="action-icon">!</div><h3 id="action-title">Recommended next step</h3><p id="action-copy">Review the report before proceeding.</p><ul id="action-list"></ul></article>
+              <article class="panel"><h3>Understanding the verdict</h3><div class="legend-row"><i class="legend-dot red"></i><span><b>Potential phishing</b><small>High-risk classification from the detector.</small></span></div><div class="legend-row"><i class="legend-dot amber-dot"></i><span><b>Suspicious</b><small>Warning indicators need review.</small></span></div><div class="legend-row"><i class="legend-dot green-dot"></i><span><b>Lower risk</b><small>No strong warning was detected.</small></span></div></article>
+            </aside>
+          </div>
+          <p class="disclaimer"><strong>Important:</strong> This academic prototype is not a live security audit. A low score does not prove a website is safe. Verify the domain through a trusted source before entering sensitive information.</p>
+        </section>
+      </div>
+      <aside class="scanner-sidebar">
+        <article class="sidebar-card"><div class="sidebar-icon blue-soft">✓</div><h3>What this tool checks</h3><ul class="check-list"><li>URL patterns and structure</li><li>ML phishing estimate</li><li>Configured risk indicators</li><li>Hostname and normalized URL</li></ul></article>
+        <article class="sidebar-card muted-sidebar"><h3>Safe browsing reminders</h3><p>Be cautious with shortened links, misspelled domains, unexpected login pages, and urgent requests for credentials.</p><a href="/static/email.html" class="sidebar-link">Need to check an email? →</a></article>
+      </aside>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="footer-brand" href="/">PhishGuard AI</a><span>Website detection</span><a href="/static/email.html">Switch to email detection →</a></footer>
+  <script src="/static/script.js"></script>
+</body>
+</html>

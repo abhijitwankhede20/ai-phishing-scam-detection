@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>Email Detection | PhishGuard AI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">P</span><span>PhishGuard <b>AI</b></span></a>
+      <nav class="main-nav" aria-label="Main navigation"><a class="nav-link" href="/">Overview</a><a class="nav-link" href="/static/website.html">Website detection</a><a class="nav-link active" href="/static/email.html">Email detection</a></nav>
+      <span class="nav-status"><i class="status-violet"></i> Email scanner</span>
+    </div>
+  </header>
+  <main class="page-wrap">
+    <div class="breadcrumb"><a href="/">Overview</a><span>/</span><span>Email detection</span></div>
+    <section class="scanner-heading email-heading">
+      <div class="scanner-heading-copy"><div class="eyebrow eyebrow-violet"><span class="eyebrow-line"></span> MESSAGE THREAT ANALYSIS</div><h1>Scam email <span>detection</span></h1><p>Review an email for suspicious language and phishing signals. The combined report compares configured rule-based checks with your trained machine-learning classifier.</p></div>
+      <div class="scanner-heading-icon violet-heading-icon">✉</div>
+    </section>
+    <section class="scanner-layout">
+      <div class="scanner-main">
+        <article class="form-card">
+          <div class="card-heading"><span class="card-heading-icon violet-soft">01</span><div><h2>Analyze an email</h2><p>Enter the message details below. Sender address is optional.</p></div></div>
+          <form id="email-form" class="scan-form email-scan-form">
+            <div class="field-group"><label for="sender-input">Sender email <span class="optional">(optional)</span></label><input id="sender-input" type="email" placeholder="sender@example.com" autocomplete="email"></div>
+            <div class="field-group"><label for="subject-input">Email subject</label><input id="subject-input" type="text" placeholder="e.g. Urgent account verification"></div>
+            <div class="field-group"><label for="email-body-input">Email body</label><textarea id="email-body-input" rows="8" placeholder="Paste the email message here…"></textarea><p class="field-help">Do not paste real passwords, private credentials, or confidential personal information.</p></div>
+            <button id="email-scan-button" class="button button-violet full-button" type="submit"><span>Analyze email</span><span aria-hidden="true">→</span></button>
+          </form>
+        </article>
+        <section id="email-loading" class="notice loading hidden" role="status" aria-live="polite"><span class="spinner spinner-violet"></span><div><strong>Analyzing email…</strong><p>Running rule-based and machine-learning checks.</p></div></section>
+        <section id="email-error-box" class="notice error hidden" role="alert"></section>
+
+        <section id="email-report" class="report hidden" aria-live="polite">
+          <div class="report-topline"><div><div class="section-kicker">ANALYSIS COMPLETE</div><h2>Email scan report</h2><p id="email-report-time" class="report-time"></p></div><button id="email-print-button" class="button button-outline" type="button">Print / Save PDF</button></div>
+          <article id="email-verdict-panel" class="verdict-panel"><div id="email-verdict-icon" class="verdict-icon">!</div><div class="verdict-copy"><div class="verdict-overline">COMBINED EMAIL VERDICT</div><h3 id="email-verdict-title">Analysis complete</h3><p id="email-verdict-description">Review both detector results below.</p></div><span id="email-status-badge" class="status-badge">UNKNOWN</span></article>
+          <div class="summary-grid">
+            <article class="metric-card"><div class="metric-head"><span class="metric-symbol amber-symbol">⌁</span><span class="card-label">Rule-based risk</span></div><h3><span id="email-rule-score">—</span><small> / 100</small></h3><p id="email-rule-verdict" class="metric-note">Not available</p></article>
+            <article class="metric-card"><div class="metric-head"><span class="metric-symbol violet-symbol">◉</span><span class="card-label">ML phishing estimate</span></div><h3 id="email-ml-score">—</h3><div class="progress" role="progressbar" aria-label="Email phishing estimate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="email-ml-bar"></div></div><p class="metric-note">Model estimate, not a guarantee.</p></article>
+            <article class="metric-card"><div class="metric-head"><span class="metric-symbol green-symbol">⇄</span><span class="card-label">Detector agreement</span></div><h3 id="email-agreement">—</h3><p id="email-agreement-note" class="metric-note">Compare both results.</p></article>
+          </div>
+          <div class="report-columns">
+            <div class="report-main">
+              <article class="panel"><div class="panel-heading"><span class="panel-icon violet-panel-icon">≡</span><div><h3>Rule-based findings</h3><p>Warnings detected by configured email rules</p></div></div><ul id="email-rule-reasons" class="findings-list"></ul></article>
+              <article class="panel"><div class="panel-heading"><span class="panel-icon violet-panel-icon">✦</span><div><h3>Machine-learning result</h3><p>Classification from the email subject and body</p></div></div><p id="email-ml-verdict" class="ml-verdict">Not available</p><p id="email-safe-score" class="metric-note"></p><p id="email-method" class="metric-note"></p></article>
+            </div>
+            <aside class="report-side"><article id="email-action-panel" class="action-panel"><div class="action-icon">!</div><h3 id="email-action-title">Recommended next step</h3><p id="email-action-copy">Review the results before acting.</p><ul id="email-action-list"></ul></article>
+              <article class="sidebar-card muted-sidebar"><h3>Think before you click</h3><p>Do not enter credentials from an unexpected link. Verify requests using a separate, trusted communication channel.</p><a href="/static/website.html" class="sidebar-link">Check a website URL →</a></article>
+            </aside>
+          </div>
+          <p class="disclaimer"><strong>Important:</strong> This academic prototype can make false-positive and false-negative predictions. A SAFE result does not prove an email is trustworthy. Verify unexpected requests independently.</p>
+        </section>
+      </div>
+      <aside class="scanner-sidebar">
+        <article class="sidebar-card"><div class="sidebar-icon violet-soft">✦</div><h3>Two detection signals</h3><ul class="check-list"><li>Rule-based warning score</li><li>ML phishing classification</li><li>Reasons returned by email rules</li><li>Combined verdict and guidance</li></ul></article>
+        <article class="sidebar-card muted-sidebar"><h3>Privacy reminder</h3><p>Use sample or sanitized email content for demonstrations. Avoid pasting private messages or sensitive personal information into an academic prototype.</p></article>
+      </aside>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="footer-brand" href="/">PhishGuard AI</a><span>Email detection</span><a href="/static/website.html">Switch to website detection →</a></footer>
+  <script src="/static/script.js"></script>
+</body>
+</html>
